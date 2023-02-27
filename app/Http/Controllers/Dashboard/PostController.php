@@ -3,10 +3,13 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Str;
+
 use App\Http\Requests\Post\StoreRequest;
 use App\Models\Category;
 use App\Models\Post;
-use Illuminate\Http\Request;
 
 class PostController extends Controller
 {
@@ -17,8 +20,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
-        echo 'index';
+        $posts = Post::paginate(2);
+        return view('dashboard/post/index', compact('posts'));
     }
 
     /**
@@ -33,7 +36,7 @@ class PostController extends Controller
         return view('dashboard/post/create', compact('categories'));
     }
 
-    /**
+    /** / ----------------------------------------------------------------------------------------
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -44,10 +47,18 @@ class PostController extends Controller
         //dd(request('title'));
         //echo $request->input('title);   
         //$data = array_merge($request->all(), ['image' => '']); 
-        dd($request->all());    
-        Post::create($request->all());
+        //$validated = Validator::make($request->all(), StoreRequest::myRules());
+
+        //dd($validated->errors());
+        // $data = $request->validated();
+        
+        // $data['slug'] = Str::slug($data['title']);
+
+        // dd($request->all());    
+        Post::create($request->validated());
     }
 
+    // -- -----------------------------------------------------------------------------------------
     /**
      * Display the specified resource.
      *
@@ -56,7 +67,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        //
+        return "SHOW";
     }
 
     /**
@@ -67,7 +78,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        $categories = Category::pluck('id', 'title');
+        //dd($categories);
+        return view('dashboard/post/edit', compact('categories', 'post'));
     }
 
     /**
@@ -90,6 +103,6 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        //
+        return "DESTROY";
     }
 }
