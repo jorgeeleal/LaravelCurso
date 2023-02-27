@@ -14,8 +14,9 @@ class TestController extends Controller
      */
     public function index()
     {
-        $name = "HEllo";
-        return view('dashboard/test/index', ['name' => $name, 'html' => '<h3>HOLAS</h3>', 'array' => ['Esto', 'es', 'un', 'array']]);
+        $posts = [1, 2, 3, 4, 5, 'posts'];
+        $name = 'LEAL';
+        return view('dashboard/test/index', compact('posts', 'name'));
     }
 
     /**
