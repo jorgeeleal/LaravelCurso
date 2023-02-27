@@ -7,10 +7,7 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>{{ $name }}</h1>
-    {!! $html !!}
+    <h1>Dashboard</h1>
+
 </body>
-<script>
-    //alert('hola mundo')
-</script>
 </html>
