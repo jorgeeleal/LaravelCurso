@@ -11,6 +11,12 @@
     crossorigin="anonymous">
 </head>
 <body>
+    <div class="container mt-3">
+        @if (session('status'))
+            <p class="{{session('status') == 'Registro eliminado.' ? 'text-danger' : 'text-success'}}">{{session('status')}}</p>
+        @endif
+    </div>
     @yield('content')
 </body>
 </html>
+
