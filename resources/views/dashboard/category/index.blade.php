@@ -3,9 +3,9 @@
 @section('content')
 
     <div class="container mt-3">
-        <a href="{{route('post.create')}}" class="text-decoration-none">Crear Post</a>
+        <a href="{{route('post.index')}}" class="text-decoration-none">Volver</a>
         |
-        <a href="{{route('category.index')}}" class="text-decoration-none">Ver Categorías</a>
+        <a href="{{route('category.create')}}" class="text-decoration-none">Crear Categoría</a>
 
         <div class="card my-4">
             <div class="card-body">
@@ -13,32 +13,28 @@
                     <thead>
                         <tr>
                             <th>Titulo</th>
-                            <th>Categoría</th>
-                            <th>Posted</th>
+                            <th>Slug</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($posts as $p)
+                        @foreach ($categories as $c)
                             <tr>
                                 <td>
-                                    {{$p->title}}
+                                    {{$c->title}}
                                 </td>
                                 <td>
-                                    {{$p->category->title}}
-                                </td>
-                                <td>
-                                    {{$p->posted}}
+                                    {{$c->slug}}
                                 </td>
                                 <td>
                                     <div class="row">
                                         <div class="col-auto">
-                                            <a href="{{route('post.edit', $p)}}" class="btn btn-outline-secondary btn-sm" role="button">Actualizar</a>
-                                            <a href="{{route('post.show', $p)}}" class="btn btn-outline-success btn-sm" role="button">Ver</a>
+                                            <a href="{{route('category.edit', $c)}}" class="btn btn-outline-secondary btn-sm" role="button">Actualizar</a>
+                                            <a href="{{route('category.show', $c)}}" class="btn btn-outline-success btn-sm" role="button">Ver</a>
                                             
                                         </div>
                                         <div class="col">
-                                            <form action="{{route('post.destroy', $p)}}" method="post">
+                                            <form action="{{route('category.destroy', $c)}}" method="post">
                                                 @csrf
                                                 @method("DELETE")
                                                 <button type="submit" class="btn btn-outline-danger btn-sm">Eliminar</button>
@@ -52,7 +48,7 @@
                 </table>
             </div>
         </div>
-        {{$posts->links()}}
+        {{$categories->links()}}
     </div>
 
 @endsection
