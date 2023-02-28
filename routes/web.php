@@ -26,6 +26,9 @@ Route::group(['prefix' => 'dashboard'], function () {
     ]);
 });
 
+// Route::get('/ex', function() {
+//     echo random_int(0, 1);
+// });
 
 /*
 Route::get('post', [PostController::class, 'index']);

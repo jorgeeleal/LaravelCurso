@@ -18,7 +18,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(6);
+        $categories = Category::paginate(8);
         return view('dashboard/category/index', compact('categories'));
     }
 
