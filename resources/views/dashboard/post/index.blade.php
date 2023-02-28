@@ -23,7 +23,7 @@
                                     {{$p->title}}
                                 </td>
                                 <td>
-                                    {{$p->category_id}}
+                                    {{$p->category->title}}
                                 </td>
                                 <td>
                                     {{$p->posted}}

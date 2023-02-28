@@ -9,15 +9,17 @@
         </div>
     </div>
     <br>
-    <div class="row">
-        <div class="col-1">
-            <label for="slug" class="form-label">Slug</label>
+    @if (isset($task) && $task == "edit")
+        <div class="row">
+            <div class="col-1">
+                <label for="slug" class="form-label">Slug</label>
+            </div>
+            <div class="col">
+                <input value="{{$post->slug}}" class="form-control form-control-sm" type="text" placeholder="Slug" name="slug" >
+            </div>
         </div>
-        <div class="col">
-            <input value="{{$post->slug}}" class="form-control form-control-sm" type="text" placeholder="Slug" name="slug" >
-        </div>
-    </div>
-    <br>
+        <br>
+    @endif
     <div class="row">
         <div class="col-1">
             <label for="category_id" class="form-label">Categoría</label>
@@ -61,5 +63,16 @@
         </div>
     </div>
     <br>
+    @if (isset($task) && $task == "edit")
+        <div class="row">
+            <div class="col-1">
+                <label for="image" class="form-label">Imagen</label>
+            </div>
+            <div class="col">
+                <input value="{{old('image', $post->image)}}" class="form-control form-control-sm" type="file" name="image">
+            </div>
+        </div>
+        <br>    
+    @endif 
     <button type='submit' class="btn btn-primary">Enviar</button>
 </div>
