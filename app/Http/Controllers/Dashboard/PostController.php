@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+//use Illuminate\Http\Request;
 //use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
+//use Illuminate\Support\Str;
 
 use App\Http\Requests\Post\StoreRequest;
+use App\Http\Requests\Post\PutRequest;
 use App\Models\Category;
 use App\Models\Post;
 
@@ -20,7 +21,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate(2);
+        $posts = Post::paginate(6);
         return view('dashboard/post/index', compact('posts'));
     }
 
@@ -32,8 +33,10 @@ class PostController extends Controller
     public function create()
     {
         $categories = Category::pluck('id', 'title');
+        $post = new Post();
+
         //dd($categories);
-        return view('dashboard/post/create', compact('categories'));
+        return view('dashboard/post/create', compact('categories', 'post'));
     }
 
     /** / ----------------------------------------------------------------------------------------
@@ -56,6 +59,8 @@ class PostController extends Controller
 
         // dd($request->all());    
         Post::create($request->validated());
+
+        return to_route('post.index')->with('status', 'Registro añadido.');
     }
 
     // -- -----------------------------------------------------------------------------------------
@@ -67,7 +72,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return "SHOW";
+        return view('dashboard/post/show', compact('post'));
     }
 
     /**
@@ -90,9 +95,12 @@ class PostController extends Controller
      * @param  \App\Models\Post  $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(PutRequest $request, Post $post)
     {
-        //
+        //dd($request->validated());
+        $post->update($request->validated());
+        //$request->session()->flash('status', 'Registro actualizado.');
+        return to_route('post.index')->with('status', 'Registro actualizado.');
     }
 
     /**
@@ -103,6 +111,7 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
-        return "DESTROY";
+        $post->delete();
+        return to_route('post.index')->with('status', 'Registro eliminado.');
     }
 }
