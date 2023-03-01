@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Category\PutRequest;
 use App\Http\Requests\Category\StoreRequest;
 use App\Models\Category;
+use App\Models\Post;
 use Illuminate\Http\Request;
 
 class CategoryController extends Controller
@@ -67,5 +68,29 @@ class CategoryController extends Controller
     {
         $category->delete();
         return response()->json('Ok');
+    }
+
+    public function posts(Category $category)
+    {
+        // -- Query Builder
+        // $posts = Post::join('categories', 'categories.id', "=", "posts.category_id")
+        // ->select('posts.*', 'categories.title as Category')
+        // ->where('categories.id', $category->id)
+        // ->get();
+
+        // -- Eloquent
+        $posts = Post::with('category')
+        ->where('category_id', $category->id)
+        ->get();
+
+        // -- toSQL();  -- Para visualizar la consulta
+
+        return response()->json($posts);
+    }
+
+    public function slug($slug){
+
+        $category = Category::where('slug', $slug)->firstOrFail();
+        return response()->json($category);
     }
 }

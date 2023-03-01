@@ -14,5 +14,11 @@
         "laravel-mix": "^6.0.6",
         "lodash": "^4.17.19",
         "postcss": "^8.1.14"
+    },
+    "dependencies": {
+        "@oruga-ui/oruga-next": "^0.5.10",
+        "@vitejs/plugin-vue": "^4.0.0",
+        "vue": "^3.2.47",
+        "vue-loader": "^17.0.1"
     }
 }
