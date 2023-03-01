@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Dashboard\CategoryController;
 use App\Http\Controllers\Dashboard\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,16 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('post', PostController::class);
+Route::group(['prefix' => 'dashboard'], function () {
+    Route::resources([
+        'post' => PostController::class,
+        'category' => CategoryController::class
+    ]);
+});
+
+// Route::get('/ex', function() {
+//     echo random_int(0, 1);
+// });
 
 /*
 Route::get('post', [PostController::class, 'index']);

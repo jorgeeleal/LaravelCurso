@@ -8,10 +8,10 @@
 
                 @include("dashboard/fragments/errors-form")
 
-                <form action="{{ route('post.update', $post->id) }}" method="post" class="mt-3">
+                <form action="{{ route('post.update', $post->id) }}" method="post" class="mt-3" enctype="multipart/form-data">
                     @method("PUT")
 
-                    @include('dashboard/fragments/form-post')
+                    @include('dashboard/fragments/form-post', ["task" => "edit"])
                     
                 </form>
             </div>

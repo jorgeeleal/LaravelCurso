@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Category\PutRequest;
+use App\Http\Requests\Category\StoreRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
-
-use App\Http\Requests\Category\StoreRequest;
-use App\Http\Requests\Category\PutRequest;
 
 class CategoryController extends Controller
 {
@@ -18,19 +17,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(8);
-        return view('dashboard/category/index', compact('categories'));
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $category = new Category();
-        return view('dashboard/category/create', compact('category'));
+        // Category::paginate(10);
+        return response()->json(Category::get());
     }
 
     /**
@@ -41,9 +29,7 @@ class CategoryController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        Category::create($request->validated());
-        return to_route('category.index')->with('status', 'Registro añadido.');
-
+        return response()->json(Category::create($request->validated()));
     }
 
     /**
@@ -54,18 +40,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        return view('dashboard/category/show', compact('category'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Category  $category
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Category $category)
-    {
-        return view('dashboard/category/edit', compact('category'));
+        return response()->json($category);
     }
 
     /**
@@ -78,7 +53,8 @@ class CategoryController extends Controller
     public function update(PutRequest $request, Category $category)
     {
         $category->update($request->validated());
-        return to_route('category.index')->with('status', 'Registro actualizado.');
+        return response()->json($category);
+        
     }
 
     /**
@@ -90,6 +66,6 @@ class CategoryController extends Controller
     public function destroy(Category $category)
     {
         $category->delete();
-        return to_route('category.index')->with('status', 'Registro eliminado.');
+        return response()->json('Ok');
     }
 }
