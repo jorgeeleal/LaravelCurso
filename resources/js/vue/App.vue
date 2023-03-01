@@ -1,15 +1,16 @@
 <script>
 import List from './components/List.vue';
+import CrearPost from './components/CrearPost.vue';
 export default {
     components:{
-        List
+        List, 
+        CrearPost
     }
 }
 </script>
 
 <template>
-    <div>
-        <h1>Principal</h1>
-        <List />
+    <div class="container mt-5">
+        <CrearPost />
     </div>
 </template>       

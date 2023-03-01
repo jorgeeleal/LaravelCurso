@@ -13,7 +13,7 @@ class PostController extends Controller
 
     public function index()
     {
-        return response()->json(Post::get());
+        return response()->json(Post::with('category')->paginate(8));
     }
 
     public function store(StoreRequest $request)
