@@ -37,4 +37,16 @@ class PostController extends Controller
         $post->delete();
         return response()->json('Ok, 200');
     }
+
+    // public function slug($slug){
+
+    //     $post = Post::with('category')->where('slug', $slug)->firstOrFail();
+    //     return response()->json($post);
+    // }
+
+    public function slug(Post $post)
+    {
+        $post->category;
+        return response()->json($post);
+    }
 }
