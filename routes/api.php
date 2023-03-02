@@ -26,5 +26,7 @@ Route::get('category/slug/{slug}', [CategoryController::class, 'slug']);
 
 Route::put('post/slug/{post:slug}', [PostController::class, 'update']);
 
+Route::post('post/upload/{post}', [PostController::class, 'upload']);
+
 Route::resource('category', CategoryController::class)->except('edit', 'create');
 Route::resource('post', PostController::class)->except('edit', 'create');

@@ -34,7 +34,15 @@ export default {
             </div>
             <p class="mb-1 fw-semibold">Contenido:</p>
             <p class="mb-4">{{ post.content }}</p>
-            <p><span class="mb-1 fw-semibold">Categoría: </span> {{ post.category.title }}</p>
+            <div class="row">
+                <div class="col-auto">
+                    <p><span class="mb-1 fw-semibold">Categoría: </span> {{ post.category.title }}</p>
+                </div>
+                <div class="col-auto"> | </div>
+                <div class="col-auto">
+                    <p><span class="mb-1 fw-semibold">Imagen: </span> {{ post.image }}</p>
+                </div>
+            </div>
         </div>
     </div>    
 </template>
