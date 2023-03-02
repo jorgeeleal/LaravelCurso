@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/vue', function () {
+Route::get('/vue/{arg1?}/{arg2?}', function () {
     return view('vue');
 });
 
