@@ -19,7 +19,9 @@ export default {
                 posted:"",
                 category_id:""
             },
-            post: ""
+            post: "",
+            image: "",
+            fileError: ""
         }
     },
     async mounted() {
@@ -62,8 +64,6 @@ export default {
                     this.errorsForm(error);
                 });
             }
-
-            
         },
         cleanErrorsForm() {
             this.errors.title = "";
@@ -86,6 +86,25 @@ export default {
             if(error.response.data.description) this.errors.description = error.response.data.description[0];
             if(error.response.data.posted) this.errors.posted = error.response.data.posted[0];
             if(error.response.data.category_id) this.errors.category_id = error.response.data.category_id[0];
+        },
+        upload(){
+            this.fileError = "";
+
+            const formData = new FormData();
+
+            formData.append("image", this.image[0]);
+            axios.post('/api/post/upload/'+ this.post.id, formData, {
+                headers: {"Content-Type": "multipart/form-data"}
+            })
+            .then(response => {
+                console.log(response);
+            })
+            .catch(errors => {
+                this.fileError = errors.response.data.message;
+            });
+        },
+        saveFile(event){
+            this.image = event.target.files;
         }
     },
 }
@@ -168,6 +187,20 @@ export default {
                             <p v-if="errors.category_id" class=" fs-6 text-danger " >*{{errors.category_id}}</p>
                         </div>
                     </div>
+                </div>
+                <div v-if="$route.params.slug" class="mb-3">
+                    <div class="row">
+                        <div class="col-1">
+                            <label for="image" class="form-label">Imagen</label>
+                        </div>
+                        <div class="col">
+                            <input class="form-control form-control-sm" name="image" type="file" @change="saveFile" multiple>
+                        </div>
+                        <div class="col-auto">
+                            <button class="btn btn-primary px-5" type="button" @click="upload">Subir</button>
+                        </div>
+                    </div>
+                    <p v-if="fileError" class=" fs-6 text-danger " >*{{fileError}}</p>
                 </div>
                 <button type="submit" class="btn btn-primary mt-3">Enviar</button>
             </form>
